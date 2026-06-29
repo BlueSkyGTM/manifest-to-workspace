@@ -61,8 +61,8 @@ contracts, not more agents.)
 External tools whose core is parallel or multi-agent are fenced to their single-agent-compatible
 surface in platform/TOOLING.md. In particular, gstack's Conductor and sub-agents are REJECTED here;
 only its single-agent surface (Confusion Protocol, /freeze, /guard, sprint stages, /spec, /autoplan,
-GBrain + trust triad) is adopted. Do not enable a tool's parallel features because its README centers
-them.
+and a retrieval-store trust triad) is adopted. Do not enable a tool's parallel features because its
+README centers them.
 
 ## 6. Deferral points check conformance, not quality.
 

@@ -1,10 +1,15 @@
 # platform/TOOLING.md — Tool-Surface POLICY (not tool choices)
 
 This file is the core POLICY for HOW tools are admitted: which surface area of a multi-feature tool
-M2W adopts vs fences out, and why. It names NO domain and picks NO concrete tools — those are an
-instantiation detail (see `pilots/<name>/tooling.md`). A tool's reputation is not a license to import
-all of it. Where a tool's core conflicts with an M2W law, the conflicting part is fenced out
-EXPLICITLY, so a later reader does not pull it in because "that's how the tool works."
+M2W adopts vs fences out, and why. Two categories, and the line between them matters:
+- **Operating-environment / harness tools** (the agent's own runtime — e.g. gstack, a minimalism
+  ladder) are CONSTANT across domains, so their fence is core policy and named here.
+- **Domain / deliverable tool CHOICES** (extractors, build-chain tools, a retrieval store) vary by
+  domain and are picked by the instantiation, NOT here — see `pilots/<name>/tooling.md`.
+
+So core names no DOMAIN tool. A tool's reputation is not a license to import all of it. Where a tool's
+core conflicts with an M2W law, the conflicting part is fenced out EXPLICITLY, so a later reader does
+not pull it in because "that's how the tool works."
 
 ## The admission rule (applies to every tool a pilot chooses)
 1. **Adopt the surface, not the engine.** Take the part that fits the laws; fence the rest by name.

@@ -1,4 +1,7 @@
-# SETUP.md — How to Start M2W (read this first)
+# SETUP.md — How to Start M2W (invocation + pre-load rules)
+
+> The canonical READ ORDER (the law) lives in CLAUDE.md. This file is not the law; it carries the
+> kickoff prompt and the one pre-load rule, so they live in the repo, not in your head.
 
 This file exists so the invocation and the pre-load rules live IN the repo, not in your head.
 
@@ -33,8 +36,8 @@ Everything else is a TRAP. Do NOT pre-place material into:
 - **carts/ , tailings/ , bench/ — NEVER.** These are DOWNSTREAM of the assay. Material is only
   supposed to arrive there by passing THROUGH a logged seam call. On a first/training run the assay
   is the thing being TRAINED and TESTED. Hand-placing material in carts/ asserts "this is on-seam"
-  without the assay running — which contaminates the seam's training data (Run 1a) and corrupts the
-  blind-discovery grade (Run 1c), where the seam would appear to have sorted material it never saw.
+  without the assay running — which contaminates the seam's training data on a training run and
+  corrupts the blind grade, where the seam would appear to have sorted material it never saw.
   This does not crash anything. It SILENTLY INVALIDATES the run, which is worse than a crash because
   you will not know it happened. The empty-downstream-folders property exists precisely so that
   everything in a downstream folder EARNED its way there through a logged call.

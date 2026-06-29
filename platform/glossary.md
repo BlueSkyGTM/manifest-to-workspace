@@ -50,11 +50,10 @@ a term you need, BENCH the question and stop — do not guess a definition.
 - **Evaluator / Accept-Revise-Block** — the independent checker (worker != checker). Three verdicts:
   accept (conforms, advances), revise (fixable, re-run), block (wrong, escalate). Conformance + source-
   fidelity, never quality.
-- **Pilot vocabulary** — domain-specific terms (e.g. *capstone build* = a concrete iteration chain;
-  *curriculum-maze*, *Run 1a/1b/1c*, *curriculum loop* = an instantiation's validation sub-runs) are
-  defined by the instantiation, NOT core. See `pilots/<name>/`. Core declares only the generic
-  interfaces: the iteration-workflow interface (`stages/04-iteration/iteration-workflow.md`) and the
-  validation ladder (`DRY-RUN.md`).
+- **Pilot vocabulary** — a domain's own terms (the name of its concrete iteration chain, the labels
+  for its validation sub-runs, its deliverable shape) are defined by the instantiation, NOT core. See
+  `pilots/<name>/`. Core declares only the generic interfaces: the iteration-workflow interface
+  (`stages/04-iteration/iteration-workflow.md`) and the validation ladder (`DRY-RUN.md`).
 - **context-compressor / memory-manager** — standing skills (State/Memory harness). Write durable
   decisions to READABLE files (canonical), then optionally index into a retrieval store (projection).
   Never blackbox-only.

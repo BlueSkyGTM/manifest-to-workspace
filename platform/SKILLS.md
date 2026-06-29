@@ -14,8 +14,8 @@ to hand off between sessions during long runs (a first run can span sessions).
 ## memory-manager (on durable decisions)
 When a standing decision is made — a seam call with its reason, a schema cut, a routing rule —
 memory-manager records it. RULE: it writes to the readable learned-seam files and the logs, which are
-THEN optionally indexed into a retrieval store (e.g. GBrain) IF the instantiation wires one. The file
-is canonical; the store is only a projection. Never write a seam decision only into a store — the
+THEN optionally indexed into a retrieval store IF the instantiation wires one (the concrete store is a
+domain choice, named in the pilot). The file is canonical; the store is only a projection. Never write a seam decision only into a store — the
 human must be able to read and grade it from the files alone. (If no store is configured, the readable
 files ARE the system and nothing is lost.)
 
