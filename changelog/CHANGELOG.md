@@ -151,3 +151,14 @@ intent), how it was tested, and what breaks if it is reverted.
 - revert-risk: n/a (diagnosis + note only; no engine change). Indexing THIS agnostic 30-file repo is
   low value anyway — gbrain earns its keep on a pilot's content corpus or a large codebase, not the
   engine docs. Revisit after the host restart makes the brain able to embed.
+
+## 2026-06-30 — Add LLMLingua (content-side token reduction; ponytail's counterpart)
+- what: added LLMLingua / LLMLingua-2 to the universal manifest (detect `python -c "import llmlingua"`,
+  install `pip install llmlingua`) with a scope note. ponytail trims the CODE you write; LLMLingua
+  trims the CONTEXT you read (prompt compression, ~up to 20x, lossy but meaning-preserving).
+- why: the user's "ponytail equivalent for content." Minimizing content is wrong (under-builds), but
+  compressing the INPUT context fed to a low-context model is a genuine universal win — it never
+  touches the deliverable, only the prompt/context. LLMLingua-2 recommended (faster, task-agnostic).
+- tested: not yet installed (optional, MISSING). Manifest detect/install verified against the repo
+  (github.com/microsoft/LLMLingua).
+- revert-risk: low — optional tool; removing it just drops a context-compression option.

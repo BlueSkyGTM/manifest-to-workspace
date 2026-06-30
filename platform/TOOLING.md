@@ -75,10 +75,19 @@ Harness + state/memory:
 | gstack skills | harness (Confusion/freeze/guard/spec/autoplan) | yes | `[ -d ~/.claude/skills/gstack ]` | MISSING-ASK (ships with the Claude Code env) |
 | context-compressor / memory-manager | session-boundary compression + durable memory | yes | `[ -d ~/.claude/skills/gstack ]` | (part of gstack) |
 | ponytail (Claude Code plugin) | CODE/token minimization for CODING work (decision ladder, ~22% token cut); see scope note below | optional | `[ -d ~/.claude/plugins/marketplaces/ponytail ]` (marketplace added) | `/plugin marketplace add DietrichGebert/ponytail` then `/plugin install ponytail@ponytail` (Claude Code slash cmds, run interactively) |
+| LLMLingua / LLMLingua-2 | CONTENT-side token reduction: compress the CONTEXT/prompt fed to the model (~up to 20x, lossy but meaning-preserving); see scope note below | optional | `python -c "import llmlingua"` | `pip install llmlingua` (pulls torch + a small model; CPU-ok) |
 | codex | cross-model review/audit | optional | `command -v codex` | `npm i -g @openai/codex` |
 | gbrain (binary + global cfg) | retrieval projection (optional; readable files stay canonical) | optional | `command -v gbrain && [ -f ~/.gbrain/config.json ]` | `npm i -g gbrain` |
 | gbrain repo-pin | this repo indexed for gbrain | optional | `[ -f .gbrain-source ]` | MISSING-ASK (`/sync-gbrain --full`; needs human) |
 | evaluator | iteration Accept/Revise/Block | yes | n/a (rubric + fresh-context pass; no external tool) | n/a |
+
+**LLMLingua scope (the content-side counterpart to ponytail):** LLMLingua compresses the INPUT
+context/prompt you feed the model — useful when a stage pulls a lot of source material into context
+(e.g. iteration over a large manifest, or assaying many items). It NEVER compresses the deliverable
+you produce — you ship full content, never a compressed one. LLMLingua-2 is recommended (faster,
+task-agnostic). The clean split: **ponytail trims the CODE you write; LLMLingua trims the CONTEXT you
+read.** Both are universal token-reduction tools for a low-context model. (Repo:
+github.com/microsoft/LLMLingua.)
 
 **gbrain note (embeddings need the key at MCP-server start):** gbrain embeds via OpenAI
 (`text-embedding-3-large`). The gbrain MCP server (`gbrain serve`) captures its environment at START,
