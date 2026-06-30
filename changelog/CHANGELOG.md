@@ -74,3 +74,20 @@ intent), how it was tested, and what breaks if it is reverted.
   present, gbrain repo-pin + back-half tools flagged MISSING-ASK, pip extractors MISSING-safe).
 - revert-risk: lose the auto-detect/install capability; a cold session would again discover missing
   tools only by failing mid-run.
+
+## 2026-06-29 — Repo made fully agnostic (GTM pilot removed; universal tools only)
+- what: removed `pilots/gtm-systems-curriculum/` (all GTM domain content) and replaced it with
+  `pilots/_TEMPLATE/` (the domain-empty pilot contract). Universalized the tool layer: core now
+  declares only the UNIVERSAL manifest (gstack, codex, gbrain, the evaluator method, the standing
+  skills) in platform/TOOLING.md, with `tool-status.md` at the repo root. Dropped domain tools
+  (markitdown, youtube-transcript, article-extractor, docs-site skill, Karpathy wiki,
+  Understand-Anything) and ponytail (which does not exist as a gstack skill); the minimalism *policy*
+  is kept but de-named.
+- why: user directive — this repo is the universal ENGINE; domain features (the GTM pilot and its
+  course tools) live in their own projects. "Not universal? dump it." Keeps the engine reusable and
+  uncontaminated; the seam mechanism stays in core, the seam CONTENT belongs to a domain project.
+- tested: deletion test passes (no GTM / domain-tool refs in core; engine stands with no pilot — its
+  normal state). The simulation-tested CORE fixes (cart-record, manifest home, log enum, etc.) are
+  unaffected — they are engine, not GTM. Sim artifacts remain on the `sim/full-run` branch.
+- revert-risk: re-adding GTM (or any domain) content re-contaminates the agnostic engine. A concrete
+  pilot belongs in its own project, copied from `pilots/_TEMPLATE/`.

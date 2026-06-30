@@ -41,11 +41,12 @@ the core must still stand. (This is ICM's one-way-reference and canonical-source
 ## Before a run (the TOOL SCAN)
 
 On SETUP, and before a RUN actually fires excavation, run the **Tool scan** (`platform/TOOLING.md`)
-against the active pilot's manifest (`pilots/<name>/tooling.md`). It detects what is installed,
-installs the safe/known-missing ones, and FLAGS the rest (`MISSING-ASK`) for the human — it never
-guesses an install. The result is written to `pilots/<name>/tool-status.md`. A missing REQUIRED tool
-is a blocker: stop and report. This is why a cold session on a new machine knows immediately what to
-install.
+against the **universal manifest** (in `platform/TOOLING.md`) and, if a pilot is active, the pilot's
+**domain manifest** (`pilots/<name>/tooling.md`). It detects what is installed, installs the
+safe/known-missing ones, and FLAGS the rest (`MISSING-ASK`) for the human — it never guesses an
+install. Results are written to `tool-status.md` (universal) and `pilots/<name>/tool-status.md`
+(domain). A missing REQUIRED tool is a blocker: stop and report. This is why a cold session on a new
+machine knows immediately what to install.
 
 ## Before you change the machine (the REVERT GUARD)
 

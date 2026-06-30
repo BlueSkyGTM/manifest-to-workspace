@@ -32,9 +32,13 @@ losing the thread across long runs.
       earned); circular read-order (canonical order now in CLAUDE.md); ICM framing (modification of
       methodology, not a repo fork); ECP demoted to retired lineage.
     - Replaced core capstone-build.md with a generic iteration-workflow interface (chain → pilot).
-- broken: nothing in the CORE is broken. Open items are BLOCKED-ON-RUN and now live in the pilot
-  (deposit register, gtm-starter-kit role, answer-key population, GBrain ingest) — questions a run
-  answers, not unfinished core work. NOTE: this file is run-state, not a claim of architectural
-  completeness.
-- next: human review of the separation. Then wire pilot-pass tools only (ONE extractor + evaluator +
-  the two skills), populate pilots/.../deposits.md + answer-key/, and run Run 1a.
+- broken: nothing in the CORE is broken.
+- 2026-06-29 (later): made the repo FULLY agnostic per user direction. Removed the GTM pilot; this
+  repo is now the universal ENGINE only. Added pilots/_TEMPLATE/ (the pilot contract). Universalized
+  the tool layer (universal manifest in platform/TOOLING.md; tool-status.md at root); dropped all
+  domain tools + ponytail. Added changelog/ + revert guard, and the self-scanning tool layer.
+  Full-run simulation (sim/full-run branch) validated the engine's stage chain end to end.
+- next: to RUN, create a domain pilot in ITS OWN project by copying pilots/_TEMPLATE/ and filling the
+  extension points (seam, deposits, domain tooling, iteration-workflow, dry-run, answer-key). The
+  engine here needs nothing further to be reused; it is domain- and (beyond universal harness)
+  tool-agnostic.

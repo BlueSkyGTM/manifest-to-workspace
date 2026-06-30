@@ -1,29 +1,24 @@
-# CONTEXT.md — pilots/ (Instantiations, NOT Core)
+# CONTEXT.md — pilots/ (the instantiation CONTRACT, not instantiations)
 
-The core (root docs, `platform/`, `stages/`, the holding folders, `logs/`) is **domain-agnostic**:
-the operator supplies the domain. A **pilot** is one supplied domain — a concrete instantiation that
-fills the extension points the core declares. The GTM-systems-curriculum pilot lives here; another
-operator with another domain would add a sibling folder and the core would not change.
+This repo is the domain-AGNOSTIC engine. A **pilot** is one domain's instantiation of the engine.
+Pilots are domain-specific, so they live in **their own projects** — not in this engine repo. What
+ships here is `_TEMPLATE/`: the CONTRACT a pilot must satisfy. A domain project copies the template,
+renames it, and fills it.
 
 ## The one law of this layer (ICM one-way references)
-
-- A pilot **MAY** reference core (its contracts, schemas, gates, glossary).
-- The core **MUST NEVER** reference a pilot. If a core file names "GTM", "curriculum",
-  "wiki→course", a specific extractor, GBrain, or any domain content, that is a leak — flag it to
-  `logs/failures.md` and move it here.
-- **Deletion test:** remove `pilots/` entirely and the core must still stand and run (against a
-  different pilot). If removing a pilot breaks the core, the boundary was violated.
+- A pilot MAY reference core (its contracts, schemas, gates, glossary).
+- The core MUST NEVER reference a specific pilot. Deletion test: this engine stands with NO pilot
+  present — that is the normal state of this repo.
 
 ## The extension points a pilot fills (declared by core)
-
-| Core declares (interface) | Pilot supplies (instantiation) |
+| Core declares (interface) | Pilot supplies (in its own project) |
 |---|---|
-| Seam contract (`stages/02-assay/CONTRACT.md`) | `seam.md` — the domain boundary + its near-miss edges |
-| Deposit/extractor contract (`stages/01-excavation/CONTRACT.md`) | `deposits.md` — where material lives + which extractor matches |
-| Tool-surface policy (`platform/TOOLING.md`) | `tooling.md` — the concrete tools chosen for this domain |
-| Iteration-workflow interface (`stages/04-iteration/`) | `iteration-workflow.md` — the concrete build chain |
-| Evaluator policy (`stages/04-iteration/evaluator-rubric.md`) | the domain's conformance/source-fidelity rule |
-| Validation ladder (`DRY-RUN.md`) | `dry-run.md` — the domain's reversible run + grading |
-| Answer key + learned-seam outputs | `answer-key/`, `learned-seam/` |
+| Seam contract (`stages/02-assay/CONTRACT.md`) | the domain boundary + its near-miss edges |
+| Deposit/extractor contract (`stages/01-excavation/CONTRACT.md`) | where material lives + which extractor matches |
+| Universal tool policy + scan (`platform/TOOLING.md`) | the DOMAIN tools (extractors, build-chain) |
+| Iteration-workflow interface (`stages/04-iteration/`) | the concrete build chain |
+| Validation ladder (`DRY-RUN.md`) | the domain's reversible run + grading |
+| Logs / manifest / gates | (used as-is; nothing to supply) |
 
-Read `gtm-systems-curriculum/CONTEXT.md` for the one pilot that currently exists.
+Read `_TEMPLATE/CONTEXT.md` for the full contract and the required shapes. There is intentionally no
+concrete pilot in this repo; the engine is what you are looking at.

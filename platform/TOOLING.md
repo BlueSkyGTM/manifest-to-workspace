@@ -45,16 +45,15 @@ NOTE TO A LATER READER: do NOT enable Conductor or sub-agents because a tool's R
 They are fenced OUT here by law. Using such a tool means using the adopted surface, not its parallel
 core.
 
-## ponytail — the scope (a CODING minimalism rule, not a global one)
+## Minimalism scope (a CODING rule, not a global one)
 A minimalism "does this need to exist → skip; already covered → reuse; the minimum that works" ladder
-is DISCIPLINE for code and CORROSIVE for pedagogical/explanatory content. Applied to teaching material
-it skips "redundant" content and writes minimal explanations — fighting the spaced reinforcement and
-worked examples such content needs. So:
-- USE such a minimalism rule on coding / repo / tooling tasks (where over-engineering is the risk).
+is DISCIPLINE for code and CORROSIVE for content deliverables. Applied to a content build it skips
+"redundant" material and writes minimal explanations — fighting the completeness such content needs. So:
+- USE a minimalism rule on coding / repo / tooling tasks (where over-engineering is the risk).
 - Turn it OFF during content/deliverable building (where UNDER-building is the risk).
 - It is NOT a global minimalism rule. It is a CODING minimalism rule.
-(The concrete tool, e.g. ponytail and its `/ponytail off` command, and whether it exists in the
-environment, are an instantiation detail — verify before relying on it.)
+(If a domain wires a concrete minimalism tool to enforce this, that is a pilot tooling detail, declared
+and verified there — not a core tool.)
 
 ## Concrete tool choices live in the pilot
 The adopted set for a given run — which extractor matches which deposit, which retrieval store, which
@@ -62,13 +61,33 @@ build-chain tools — is domain-specific. It does NOT belong here. See `pilots/<
 declares the policy; the pilot makes the picks.
 
 ## Tool scan protocol (self-bootstrapping — so a cold session knows what to install)
-A cold session must not discover missing tools by failing mid-run. Each pilot declares a machine-
-readable **tool manifest** (a table in `pilots/<name>/tooling.md`); core defines how to ACT on it.
+A cold session must not discover missing tools by failing mid-run. There are TWO manifests:
+- the **universal manifest** below (domain-independent tools — the harness, cross-model review,
+  retrieval, the evaluator method, the standing skills). It lives in core because these apply to every
+  domain.
+- a **domain manifest** (per pilot, in `pilots/<name>/tooling.md`) — extractors and build-chain tools
+  specific to one domain. Present only when a pilot is active.
 
-Manifest row schema (the pilot fills these):
+The scan reads BOTH (the domain one only if a pilot is present) and acts on each.
+
+Manifest row schema:
 ```
 | tool | role / stage slot | required|optional | detect (shell test) | install (shell cmd) |
 ```
+
+### Universal manifest (this repo's tools — domain-independent)
+| tool | role | required | detect (shell test) | install (shell cmd) |
+|---|---|---|---|---|
+| gstack skills | harness (Confusion/freeze/guard/spec/autoplan) | yes | `[ -d ~/.claude/skills/gstack ]` | MISSING-ASK (ships with the Claude Code env) |
+| context-compressor / memory-manager | standing skills (state/memory harness) | yes | `[ -d ~/.claude/skills/gstack ]` | (part of gstack) |
+| codex | cross-model review/audit | optional | `command -v codex` | `npm i -g @openai/codex` |
+| gbrain (binary + global cfg) | retrieval projection (optional; readable files stay canonical) | optional | `command -v gbrain && [ -f ~/.gbrain/config.json ]` | `npm i -g gbrain` |
+| gbrain repo-pin | this repo indexed for gbrain | optional | `[ -f .gbrain-source ]` | MISSING-ASK (`/sync-gbrain --full`; needs human) |
+| evaluator | iteration Accept/Revise/Block | yes | n/a (rubric + fresh-context pass; no external tool) | n/a |
+
+DOMAIN tools (extractors, wiki/graph/build-chain) are NOT here — they belong to a pilot's
+`tooling.md`, because which one you need depends on the domain. (Repo policy: not universal? it is not
+a core tool.)
 
 WHEN the scan runs (the trigger — wired into CLAUDE.md and SETUP.md):
 - on SETUP (first orientation in a repo), and
@@ -80,8 +99,9 @@ The scan algorithm (single-agent, glass-box):
 3. For a MISSING tool whose `install` is **UNKNOWN, needs secrets/auth, needs a clone, or changes the
    machine in a way the human should approve**: do NOT guess or run it. FLAG it (status `MISSING-ASK`)
    and surface it to the human. Guessing an install violates "you do not think; you execute."
-4. Write the result to `pilots/<name>/tool-status.md` (glass-box: state on disk, regenerated each
-   scan, per-machine). Never hold tool status only in your head.
+4. Write the result to `tool-status.md` at the repo root (universal tools) and, if a pilot is active,
+   to `pilots/<name>/tool-status.md` (domain tools). Glass-box: state on disk, regenerated each scan,
+   per-machine. Never hold tool status only in your head.
 5. If a required tool is MISSING after the scan, the run cannot start that stage — STOP and report,
    per DRY-RUN.md scoping (wire only the subset a run needs; a missing required tool is a blocker, a
    missing optional tool degrades gracefully).

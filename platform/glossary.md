@@ -65,7 +65,7 @@ a term you need, BENCH the question and stop — do not guess a definition.
 - **gstack fence** — the split of gstack's surface into adopted (single-agent-compatible: Confusion
   Protocol, /freeze, /guard, sprint stages, /spec, /autoplan, a retrieval-store trust-triad) vs
   rejected (Conductor, sub-agents, /pair-agent — parallel, violates single-agent law). See TOOLING.md.
-- **ponytail scope** — a CODING minimalism rule, not a global one. ON for coding/tooling, OFF during
+- **Minimalism scope** — a CODING minimalism rule, not a global one. ON for coding/tooling, OFF during
   content/deliverable iteration, where a minimalism ladder under-builds the deliverable. See TOOLING.md.
 - **Variance thread (retired)** — the dropped idea of frontmatter as a variance stat driving an
   evolution-trigger fork. Moot once M2W went single-method; frontmatter is descriptive + sealed-flag,
