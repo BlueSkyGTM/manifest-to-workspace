@@ -3,12 +3,12 @@
 Every manifested item carries this frontmatter block. No field may require the agent to JUDGE quality
 or seam-fit — frontmatter is descriptive (what something IS), never prescriptive. If a field would
 require a quality/seam judgment, it does NOT belong here — flag it to logs/failures.md. Fields fall
-into four CLASSES (the chat draft wrongly called all of them "observed"; assigning an id is not
+into four CLASSES (the chat draft wrongly called all of them "observed"; stamping the stage is not
 observing one):
 
 ```yaml
 ---
-id: <stable unique address>               # ASSIGNED:   minted at catalogue time
+id: <stable unique address>               # INHERITED:  minted at excavation (the vault id), reused verbatim
 source: <deposit / cluster it came from>  # OBSERVED:    a fact carried from excavation
 format: <md | csv | code | doc | pdf | ...>  # OBSERVED:    the file type
 assay: cart                               # INHERITED:   carried from the assay verdict (it was carted)
@@ -23,8 +23,9 @@ upstream stage's record (not re-judged here). **ASSIGNED** = minted mechanically
 **LIFECYCLE** = state that changes as the item moves downstream. None of the four is a judgment.
 
 ## Rules
-- No field is judged. `seam_match` and `assay` are INHERITED from the assay (the human on the pilot),
-  never re-judged here.
+- No field is judged. `id` is INHERITED from excavation (the vault address, minted at haul time and
+  reused verbatim — never re-minted here); `seam_match` and `assay` are INHERITED from the assay (the
+  human on the pilot), never re-judged here.
 - `sealed` flips to true only when an item clears its final gate downstream. A sealed item is quotable
   by sibling work; an unsealed (in-flight) item is treated as not-yet-existing by siblings.
 - The body of the file stays human-readable directions/prose. Frontmatter is the countable layer.

@@ -19,8 +19,10 @@ is the contamination defense; the assets are a side effect of building the route
 
 ## Process
 1. Match the deposit to its extractor (the universal intake extractors are in `platform/TOOLING.md`;
-   which one is keyed to the deposit type). If no extractor matches the deposit type, do NOT guess —
-   bench it and log to failures.
+   which one is keyed to the deposit type). **Native text is a no-op:** a deposit already in markdown
+   or plaintext (`.md` / `.txt`) needs NO extractor — pass it through unchanged (it lands in vault at
+   step 4 as-is). Extractor-matching applies only to NON-text deposits (pdf/office, video, web). If a
+   non-text deposit has no matching extractor, do NOT guess — bench it and log to failures.
 2. Extract the material to **markdown** (e.g. markitdown for pdf/office). The markdown conversion is
    not cosmetic — it is what makes a piece **catalogable and assayable at all** (you cannot sort or
    manifest an unopened PDF). This is mechanical, not a judgment: get the substance into markdown.

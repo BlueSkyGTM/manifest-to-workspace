@@ -20,6 +20,12 @@ After each iteration, classify its delta versus the previous iteration:
 - Did this pass add content that survived the schema (substance)? → keep iterating.
 - Did this pass only reorder/reword existing content (surface)? → the curve has flattened → ship.
 
+**Iteration-1 baseline (no previous pass):** iteration 1 has nothing to compare against — its baseline
+is the EMPTY deliverable, so all of iteration 1 is substance by definition → always `iterate`, never
+`ship`. The earliest the done-gate can fire `ship` is iteration 2 (the first pass that CAN be
+surface-only). This forecloses a degenerate iteration-1 ship on a deliverable never measured against a
+prior pass.
+
 Record the classification each iteration in `logs/gate-checks.md` (gate: done-gate, outcome: iterate
 or ship, note: `delta=substance` or `delta=surface` + one line on what was added) so the curve is
 visible across passes. The "iteration log" is this stream filtered to `gate: done-gate` — no separate

@@ -209,3 +209,22 @@ intent), how it was tested, and what breaks if it is reverted.
   1:1; stage routing left untouched (simulation-validated, revert-guarded).
 - revert-risk: low — reverting re-opens manifest/scanner drift (the wrong-package trap) and re-litters
   the root. Stage contracts and core law were not modified by this audit.
+
+## 2026-06-30 — Decision 1: close the 3 codex-sim CAPACITY gaps
+- what: (1) resolved the `id`-origin CONTRADICTION — `id` is INHERITED (minted at excavation, reused
+  verbatim); fixed stages/03-manifest/frontmatter-schema.md (was mislabeled "ASSIGNED: minted at
+  catalogue time") + the field-class example. (2) Added a NATIVE-TEXT no-op rule to
+  stages/01-excavation/CONTRACT.md — a `.md`/`.txt` deposit needs no extractor; extractor-matching is
+  for non-text only — closing the "no extractor matches a plain note -> false bench" stall.
+  (3) Defined the done-gate ITERATION-1 BASELINE (stages/04-iteration/done-gate.md): iteration 1 has no
+  previous pass, so its baseline is the empty deliverable — all of it is substance, always iterate,
+  earliest ship is iteration 2.
+- why: codex full-run sim #2 (logged 2026-06-30 in logs/failures.md) flagged these as the
+  CAPACITY-PARTIAL gaps; the user authorized clean execution. Each was a contradiction or a
+  silent-contract stall a cold agent would hit.
+- tested: localized contract corrections; the inter-stage chain SHAPE is unchanged (the
+  simulation-validated handoffs still hold — `id` is the same slug, just correctly labeled INHERITED).
+  Not re-simulated; low blast radius.
+- revert-risk: low — reverting re-opens the id-origin contradiction, the native-text false-bench, and
+  the degenerate iteration-1 ship. CONTINUATION (loop 2 / re-entry) is a SEPARATE, larger decision
+  being spec'd next, NOT addressed here.
