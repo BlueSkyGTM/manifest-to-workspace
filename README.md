@@ -43,10 +43,22 @@ is pushed to the front of the line, where it is cheapest to absorb.
 
 ## The pipeline
 
+```mermaid
+flowchart LR
+    D["located deposits"] -->|excavate| V["vault<br/>raw, addressed"]
+    V -->|assay| A{"three-way<br/>seam sort"}
+    A -->|on-seam| C["carts"]
+    A -->|"off-seam, kept with a reason"| T["tailings"]
+    A -->|"uncertain — never guess"| B["bench → human"]
+    C -->|"catalogue + frontmatter"| M["manifest"]
+    M -->|"build, MVP-first"| I["iteration"]
+    I -->|"conformance + done-gate"| S["library<br/>shipped, sealed"]
+    S -.->|"new operator deposits"| D
 ```
-EXCAVATION  →  ASSAY/INTAKE  →  TRANSPORT/MANIFEST  →  ITERATION  →  SHIP
-  mine          three-way sort     catalogue + address    build, MVP-first, done-gate
-```
+
+*The dashed return edge is the loop boundary: re-entry is operator-triggered, never an auto-loop.
+Off-seam material is tailed (kept with a reason), never deleted; uncertain material benches rather
+than committing to a guess.*
 
 Each arrow is a **deferral point** — a checkpoint that asks not "is this good?" but "is the context
 clean enough to commit the next step, and does the output conform to its shape?" Quality is never
@@ -88,6 +100,12 @@ auto-loop. A new loop begins only when an operator supplies new material, and th
 what is finished because every piece carries its lifecycle state on disk (consumed / sealed). There is
 no run counter: the boundary between loops is simply the frontier of what has been produced. Stop any
 time; resume any time; the filesystem is the cursor.
+
+```mermaid
+flowchart LR
+    L1["Loop N<br/>build · ship · seal"] --> ST{{"engine stops<br/>no auto-loop"}}
+    ST -.->|"operator supplies<br/>new material"| L2["Loop N+1<br/>processes only unconsumed material ·<br/>sealed work is never re-run"]
+```
 
 **3 — One agent, many model tiers.**
 Execution is single-agent and depth-first by law — no parallelism, no coordination overhead, no large
@@ -142,6 +160,25 @@ build workflow. The core never references a pilot; a pilot may reference the cor
 It is deliberately *not* a finished product or a one-click tool. It is the frame — the structure that
 makes autonomous, auditable, resumable work possible — with the material and the domain tooling supplied
 per instantiation. Start at `CLAUDE.md` for the canonical read order.
+
+```mermaid
+flowchart TB
+    subgraph LAW["Law — present from the start, never earned"]
+      direction LR
+      A["CLAUDE.md<br/>entry + read order"] --- B["platform/<br/>principles · gates · tooling · skills · glossary"]
+    end
+    subgraph WORK["Work — the four stage contracts"]
+      C["stages/ — 01 excavation · 02 assay · 03 manifest · 04 iteration"]
+    end
+    subgraph STATE["State — glass-box, all on disk"]
+      D["vault · carts · tailings · bench · manifest · library"] --- E["logs/ + revert-guarded changelog/"]
+    end
+    LAW --> WORK --> STATE
+```
+
+*Three layers, one rule: the law is read first and never edited mid-run; the work is the stage
+contracts; the state is entirely on disk, inspectable and gradeable. Nothing is hidden in the agent's
+head.*
 
 ---
 
