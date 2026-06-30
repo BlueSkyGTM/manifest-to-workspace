@@ -47,3 +47,21 @@
 - readily-inferred (safe to leave implicit): tailings/bench/cart routing given a seam; only-carts-proceed; slug id; source/bounded_space defaults for operator-supplied items.
 - action: all confirmed chain-breaks FIXED this session (stage 02 cart-record + bench-note format; stage 03 inherits cart record; LOGS enum; stage 04 schema path + deliverable frontmatter + seal semantics + working location; excavation id convention; pilot deposit-label alignment). Sim artifacts preserved on branch sim/full-run (not merged).
 
+## 2026-06-30T07:15:00Z
+- stage: full-run simulation #2 (Codex gpt-5.5, cold-agent narration, read-only; trivial "hello world" assignment to hold deliverable quality constant)
+- what: Re-simulated a full run to test the engine's CAPACITY to execute the chain from core alone and its CONTINUATION (can a SECOND loop start cleanly after the first ships/seals). Verdict: CAPACITY PARTIAL, CONTINUATION FAIL.
+- expected: a cold agent runs vault->cart->manifest->library without guessing; after ship, the engine defines how loop 2 begins without re-processing already-handled material or id-collision.
+- found:
+    CAPACITY (PARTIAL) — the per-item chain (vault->cart->manifest->library) is solid; residual gaps:
+    - CONTRADICTION: `id` origin disagrees — stages/01-excavation/CONTRACT.md says the id is minted at excavation and reused downstream; stages/03-manifest/frontmatter-schema.md labels id "ASSIGNED: minted at catalogue time." Pick one (excavation-minted + reused is the safer reading per the stable-address convention).
+    - GAP: no extractor / no-op rule for a NATIVE markdown/plaintext deposit — excavation says "match the deposit to its extractor" but the TOOLING manifest only lists pdf/office, video, web. A plain .md/.txt note has no rule, so the agent must guess.
+    - GAP: done-gate (stages/04-iteration/done-gate.md) classifies delta "vs previous iteration" but defines no iteration-1 BASELINE (iteration 1 has no previous).
+    - BY DESIGN (not bugs): seam, design-schema path, deliverable kind, build workflow are pilot-supplied — core correctly DEFERS/benches without a pilot. The read-only sim also cannot write tool-status.md; that is a sim artifact, not a defect.
+    CONTINUATION (FAIL) — engine defines sealing but not RE-ENTRY:
+    - No instruction says how/whether a new loop starts after ship (return to setup/excavation is undefined).
+    - No run_id / cursor / processed-flag / "only process unprocessed vault rows" rule (vault/account.md, stage 02).
+    - carts/ has no consumed/transported marker -> stage 03 could RE-MANIFEST already-carted material on loop 2.
+    - Manifest ids are "unique within the run" but no RUN BOUNDARY is represented in frontmatter/indexes -> loop-2 id collision underspecified.
+    - Sealed manifest items are "quotable" but no rule prevents stage 04 RE-CONSUMING already-sealed material.
+- action: FLAGGED, not fixed — these touch simulation-tested contracts, surfaced to the human per the REVERT GUARD. Decisions pending: (1) fix the 3 small capacity items (id-origin contradiction, md/text no-op rule, done-gate iteration-1 baseline) as mechanical corrections; (2) ARCHITECTURE CALL — define a run-boundary / continuation mechanism (run_id + processed cursor + carts consumed-marker + a post-ship re-entry rule), OR keep the engine deliberately one-loop-per-invocation with the human re-triggering (still needs the consumed-marker / run-boundary to make re-runs safe). Codex run: read-only, exit 0.
+
