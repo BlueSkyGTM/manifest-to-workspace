@@ -13,6 +13,19 @@ losing the thread across long runs.
 ```
 
 ## Current state
+## 2026-06-30 — gbrain wiring + tooling-manifest correctness
+- verified: deletion test still passes (no pilot/domain refs in core law/spec/stage files; only the
+  history files — changelog/logs/this note — record the past GTM separation). Stage routing unchanged
+  and sound (the simulation-validated chain was not touched).
+- changed: CLAUDE.md gained an optional "Session memory (gbrain)" directive (query at session start,
+  push at end; gbrain is the optional projection, files stay canonical). platform/TOOLING.md gbrain
+  install corrected — gbrain is a Bun CLI cloned from github.com/garrytan/gbrain, NOT `npm i -g gbrain`
+  (the registry package is unrelated); added a `bun` manifest row + a second-machine onboarding note.
+  bin/scan-tools.sh re-synced to the manifest (added bun + LLMLingua rows; fixed the gbrain install
+  note). Removed stray migrate.log from the root and gitignored it.
+- broken: nothing in the CORE is broken.
+- next: engine needs nothing further to be reused. To RUN, copy pilots/_TEMPLATE/ into its own project.
+
 ## 2026-06-29 — engine/pilot separation refactor (domain-agnostic core)
 - verified: core skeleton stands and is now domain-agnostic. Cross-model audit (Opus 4.8 + Codex)
   recorded in logs/failures.md; findings resolved this pass.

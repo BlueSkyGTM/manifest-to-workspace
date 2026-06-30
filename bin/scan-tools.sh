@@ -17,12 +17,16 @@ if have '[ -d ~/.claude/skills/gstack ]'; then add "gstack skills" yes PRESENT "
   else add "gstack skills" yes MISSING "ships with the Claude Code env"; miss_required=1; fi
 if have 'command -v codex'; then add "codex" no PRESENT "cross-model review";
   else add "codex" no MISSING "npm i -g @openai/codex"; fi
+if have 'command -v bun'; then add "bun" "if-gbrain" PRESENT "JS runtime the gbrain CLI runs on";
+  else add "bun" "if-gbrain" MISSING "irm bun.sh/install.ps1 | iex (Win) / curl -fsSL https://bun.sh/install | bash (unix)"; fi
 if have 'command -v gbrain && [ -f ~/.gbrain/config.json ]'; then add "gbrain" no PRESENT "retrieval (optional; needs OPENAI_API_KEY)";
-  else add "gbrain" no MISSING "npm i -g gbrain"; fi
+  else add "gbrain" no MISSING "clone+link github.com/garrytan/gbrain (NOT npm i -g gbrain: wrong package)"; fi
 if have '[ -f "$ROOT/.gbrain-source" ]'; then add "gbrain repo-pin" no PRESENT "this repo indexed";
   else add "gbrain repo-pin" no MISSING-ASK "/sync-gbrain --full (needs human)"; fi
 if have '[ -d ~/.claude/plugins/marketplaces/ponytail ]'; then add "ponytail (plugin)" no PARTIAL "marketplace added; run /plugin install ponytail@ponytail to enable. CODING scope only.";
   else add "ponytail (plugin)" no MISSING-ASK "/plugin marketplace add DietrichGebert/ponytail"; fi
+if have 'python -c "import llmlingua"'; then add "LLMLingua" no PRESENT "content-side token reduction (compress context)";
+  else add "LLMLingua" no MISSING "pip install llmlingua"; fi
 if have 'python -c "import markitdown"'; then add "markitdown" "if-pdf/office" PRESENT "intake -> markdown";
   else add "markitdown" "if-pdf/office" MISSING "pip install markitdown"; fi
 if have 'python -c "import youtube_transcript_api"'; then add "youtube-transcript" "if-video" PRESENT "intake";

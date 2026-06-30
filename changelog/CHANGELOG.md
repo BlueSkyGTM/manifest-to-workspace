@@ -194,3 +194,18 @@ intent), how it was tested, and what breaks if it is reverted.
   `init --url` path was exercised end-to-end migrating this machine's brain to a hosted Postgres brain.
 - revert-risk: medium — reverting reintroduces the `npm i -g gbrain` defect (wrong package) and drops
   the bun dependency, so a fresh clone's gbrain setup breaks exactly the way it did this session.
+
+## 2026-06-30 — Engine audit (autoplan-lens): scan-tools.sh re-synced + repo hygiene
+- what: (1) re-synced `bin/scan-tools.sh` to the universal manifest after the TOOLING.md gbrain fix —
+  added a `bun` detect row and an `LLMLingua` row, and corrected the gbrain MISSING install note from
+  `npm i -g gbrain` to the clone+link form (the scanner had drifted from the manifest it claims to
+  mirror). (2) Removed stray `migrate.log` (gbrain migration cruft) from root and gitignored it.
+  (3) Refreshed `session-handoff.md` with a 2026-06-30 clock-out entry.
+- why: a lens audit (file placement / tooling / stage routing / leak test) before handoff. The scanner
+  is the cold-clone's tip-off; if it disagrees with the manifest a fresh clone installs the wrong thing
+  (the npm-i-g-gbrain trap). migrate.log is not engine. Deletion test re-confirmed: no pilot/domain
+  refs in core law/spec/stage files (only history files record the past GTM separation).
+- tested: deletion-test grep clean across core; scan-tools.sh detect lines now match the manifest rows
+  1:1; stage routing left untouched (simulation-validated, revert-guarded).
+- revert-risk: low — reverting re-opens manifest/scanner drift (the wrong-package trap) and re-litters
+  the root. Stage contracts and core law were not modified by this audit.
