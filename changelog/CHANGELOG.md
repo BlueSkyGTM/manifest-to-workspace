@@ -125,3 +125,15 @@ intent), how it was tested, and what breaks if it is reverted.
 - tested: detected on this machine — marketplace ADDED, plugin not yet enabled (run /plugin install).
 - revert-risk: losing the scope note risks a future session running ponytail during a content build
   and under-producing the deliverable.
+
+## 2026-06-29 — Cross-clone tool-scan robustness
+- what: added `bin/scan-tools.sh` (the executable form of the Tool scan protocol — detects every
+  universal tool, prints status, regenerates tool-status.md, exits non-zero on a missing REQUIRED
+  tool). Gitignored `tool-status.md` + `pilots/*/tool-status.md` (per-machine; a fresh clone carries
+  NO stale status). CLAUDE.md trigger now names the one-line command.
+- why: "no matter where I clone, the model is tipped off if tools are missing." Prose triggers can be
+  skipped and a committed status file would show the wrong machine — a runnable script + no-stale-
+  status guarantees a fresh clone learns its real state on first scan.
+- tested: ran `bash bin/scan-tools.sh` on this machine — correct table, exit 0 (all required present).
+- revert-risk: removing the script/gitignore returns to prose-only triggering and stale committed
+  status — a clone could trust the wrong machine's tool state.

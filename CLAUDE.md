@@ -40,13 +40,15 @@ the core must still stand. (This is ICM's one-way-reference and canonical-source
 
 ## Before a run (the TOOL SCAN)
 
-On SETUP, and before a RUN actually fires excavation, run the **Tool scan** (`platform/TOOLING.md`)
-against the **universal manifest** (in `platform/TOOLING.md`) and, if a pilot is active, the pilot's
-**domain manifest** (`pilots/<name>/tooling.md`). It detects what is installed, installs the
-safe/known-missing ones, and FLAGS the rest (`MISSING-ASK`) for the human — it never guesses an
-install. Results are written to `tool-status.md` (universal) and `pilots/<name>/tool-status.md`
-(domain). A missing REQUIRED tool is a blocker: stop and report. This is why a cold session on a new
-machine knows immediately what to install.
+On SETUP, and before a RUN actually fires excavation, run the **Tool scan**. The concrete, runnable
+form is one command — `bash bin/scan-tools.sh` — which detects every universal tool, prints
+PRESENT/MISSING/MISSING-ASK, regenerates `tool-status.md`, and exits non-zero if a REQUIRED tool is
+missing. (The protocol it implements is in `platform/TOOLING.md`; if a pilot is active, also scan the
+pilot's domain manifest `pilots/<name>/tooling.md`.) It installs nothing on its own and never guesses
+an install — it FLAGS `MISSING-ASK` for the human. A missing REQUIRED tool is a blocker: stop and
+report. `tool-status.md` is per-machine and gitignored, so a fresh clone has NO stale status — the
+first scan is what tips the model off about what to install. This is why a cold session on any clone
+knows immediately what is missing.
 
 ## Before you change the machine (the REVERT GUARD)
 
