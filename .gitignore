@@ -3,3 +3,5 @@ tool-status.md
 pilots/*/tool-status.md
 # transient machine-local handoff files (trash when done)
 GBRAIN-BACKFILL-HANDOFF.md
+# personal workflow skills (not part of the agnostic engine)
+.claude/skills/
