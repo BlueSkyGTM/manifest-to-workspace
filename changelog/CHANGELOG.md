@@ -259,3 +259,19 @@ intent), how it was tested, and what breaks if it is reverted.
   (the context-flush point), and "no run counter" is deliberate. Surface to the human before changing
   any of: the `consumed` flag, the repo-unique id rule, the sealed-terminal rule, or the GATES.md §4
   "loop boundary" deferral point.
+
+## 2026-06-30 — CONTINUATION verified (codex two-loop sim): closed the sealed-routing contradiction
+- what: re-ran the codex two-loop simulation against the Route B contracts. Verdict — A1 stop/no-auto-
+  loop/no-run_id PASS (unambiguous across CLAUDE.md/GATES.md/done-gate.md), A2 consumed-flag handoff
+  excavation->assay->manifest PASS, A4 repo-unique ids PASS. A3 flagged ONE new contradiction Route B
+  introduced: stages/03-manifest/frontmatter-schema.md said the `sealed` flag "drives NO routing," but
+  stage 04 now routes iteration on `sealed: false`. Narrowed the note: the DESCRIPTIVE fields drive no
+  (variance/evolution) routing; the `sealed` LIFECYCLE flag is the one exception — it legitimately
+  gates iteration (build only from `sealed: false`; `sealed: true` terminal). With that fix,
+  CONTINUATION -> PASS and cold loop-2 execution is no-guess.
+- why: the sim is the proof the lock-in holds; it caught exactly what it was meant to — a new inter-
+  contract contradiction the additive edits introduced. The retired-variance note over-claimed "no
+  routing" and collided with the lifecycle gate Route B relies on.
+- tested: codex gpt-5.5 two-loop trace, read-only, exit 0; the only flagged gap is now closed.
+- revert-risk: low — reverting re-opens the "sealed drives no routing" contradiction that stalls a cold
+  agent at iteration filtering.

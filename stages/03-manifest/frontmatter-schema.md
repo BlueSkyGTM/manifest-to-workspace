@@ -40,7 +40,9 @@ SCHEMA is what you build (this file), not its automation.
 An earlier design considered frontmatter as a COUNTABLE VARIANCE STAT feeding an evolution trigger —
 a Tyrogue-style fork that would route low-variance material to one method and higher-variance
 material to another (the ICM-vs-ECP fork). That fork was RETIRED when M2W collapsed to a SINGLE
-method: there is no fork to evolve into. Frontmatter is therefore purely DESCRIPTIVE cataloguing plus
-the `sealed` flag (which makes an item quotable by siblings). It drives NO routing. Do not build an
-evolution trigger reading these fields — there is nothing for it to route to. The variance idea is
-recorded here as considered-and-dropped so its absence is intentional, not an oversight.
+method: there is no fork to evolve into. The DESCRIPTIVE fields (source, format, seam_match, etc.)
+therefore drive NO routing — do not build an evolution/variance trigger reading them; there is nothing
+for it to route to. The ONE exception is the `sealed` LIFECYCLE flag: it is not a variance stat but a
+lifecycle GATE — iteration builds only from `sealed: false` items and treats `sealed: true` as terminal
+(and quotable by siblings). That is lifecycle filtering, not the retired variance routing. The variance
+idea is recorded here as considered-and-dropped so its absence is intentional, not an oversight.
