@@ -9,7 +9,8 @@ accounted**, NOT seam-earned. "Earned by clearing a deferral point" governs the 
 (carts/, tailings/, bench/, manifest/, library/) — a piece reaches those only by passing a gate.
 Vault is upstream of the first gate, so nothing here has earned anything yet; it has only been hauled
 and addressed. What vault requires is not a verdict but an ADDRESS: every piece is in `vault/account.md`
-(address + source + format + bounded-space). Unaddressed material in vault is the only error state.
+(address + source + format + bounded-space + `consumed: false`). Unaddressed material in vault is the
+only error state.
 
 Nothing is loaded into context from here speculatively (M2W) — downstream stages follow an address to
 one piece, never absorb the pile.

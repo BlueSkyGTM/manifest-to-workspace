@@ -31,7 +31,8 @@ You MAY place raw material into the pipeline before setup. There is exactly ONE 
 - **vault/ — the only door.** vault/ is the excavation target. Raw, unsorted material is SUPPOSED to
   land here. Pre-loading it just means excavation has material waiting. ONE caveat: pre-loaded
   material is not "done" until it is ADDRESSED and ACCOUNTED — every piece needs a stable address and
-  a row in `vault/account.md` (address + source + format + bounded-space) before the assay reads it.
+  a row in `vault/account.md` (address + source + format + bounded-space + `consumed: false`) before
+  the assay reads it.
   A raw dump with no addresses forces whole-pile loading, which defeats the contamination defense
   excavation exists to provide. Pre-load freely, but address what you pre-load (or let excavation do
   it). This is still the only door.

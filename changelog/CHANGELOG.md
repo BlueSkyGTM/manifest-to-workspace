@@ -378,3 +378,16 @@ intent), how it was tested, and what breaks if it is reverted.
 - revert-risk: medium (conceptual). Do NOT relax the assay guard (cite-evidence + near-miss check +
   TOP/human on immature seams), the deterministic-switch rule, or the same-transcript single-agent
   guard — each re-opens a law hole the voice flagged.
+
+## 2026-06-30 — SETUP verified post-changes; align vault-account row format (consumed field)
+- what: verified SETUP still works after tonight's changes (tool scan exit 0; every SETUP.md file
+  reference resolves; the 8 law files are unchanged in count; the read-order stays coherent — new
+  content landed inside platform/ files the order already covers). Found + fixed one ripple from Route
+  B: the `vault/account.md` row format was described WITHOUT the new `consumed: false` field in three
+  places — SETUP.md, vault/account.md, vault/CONTEXT.md — now aligned with the authoritative
+  stages/01-excavation/CONTRACT.md.
+- why: operator asked whether SETUP still works with all the changes; the verify caught the stale
+  row-format copies. (The deposits register in pilots/_TEMPLATE/CONTEXT.md is correctly unchanged —
+  deposits are the source list, not vault rows.)
+- tested: grep confirms every vault-account-row description now carries `consumed: false`; bin/scan-tools.sh exit 0.
+- revert-risk: low — doc consistency fix; no chain change.
