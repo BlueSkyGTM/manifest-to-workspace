@@ -316,3 +316,19 @@ intent), how it was tested, and what breaks if it is reverted.
 - revert-risk: low — additive guidance. Preserve the two invariants if editing: every gated play is
   conformance-not-quality and conditional-on-surface; nothing at the assay; no subagents at conformance;
   the loop boundary stays session-continuity, not auto-loop.
+
+## 2026-06-30 — gstack map is OPEN: pilots wake dormant plays on domain need
+- what: clarified that the SKILLS.md gate→play map is the universal DEFAULT, not a closed allowlist.
+  Added the open-map principle to platform/SKILLS.md and a "Domain-woken gstack plays" slot to
+  pilots/_TEMPLATE/tooling.md. A pilot may WAKE any dormant gstack play its domain warrants (e.g. a
+  website pilot wakes /qa, /design-html, /design-review, /canary; an iOS pilot wakes the /ios-* suite),
+  at the matching gate, under the same invariants. Only the parallel/multi-agent plays are truly
+  rejected and can never be woken.
+- why: operator directive — dormant skills should wake when the project warrants, not be permanently
+  excluded by the core cut. This is the engine/pilot boundary applied to gstack activation: core
+  declares the universal default; the pilot owns domain choices (incl. which plays to wake), declared
+  in pilots/<name>/tooling.md (consistent with TOOLING.md "concrete tool choices live in the pilot").
+- tested: domain-agnostic — the core map still names no specific pilot; website/iOS are illustrative
+  examples (like naming OpenAI for embeddings). Deletion test unaffected; not a chain change.
+- revert-risk: low — guidance. Keep the invariants on any woken play (single-agent, conformance-not-
+  quality, nothing-at-assay, no-subagents, session-continuity loop boundary).

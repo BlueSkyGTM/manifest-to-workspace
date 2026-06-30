@@ -59,6 +59,19 @@ plays — never a pilot or domain.
 maker-checker parallelism — all violate single-agent. Cross-model review is the SEQUENTIAL fresh-context
 evaluator, not a parallel worker.
 
+**The map is OPEN, not a closed allowlist — dormant plays wake on domain need.** The rows above are the
+universal DEFAULT: the prebuilt triggers that fire on ANY domain. They do NOT exhaust the suite. The
+active pilot may WAKE any other gstack play its domain warrants, at the matching deferral point, under
+the same invariants (single-agent surface; conformance-not-quality; the hard edges — nothing at the
+assay, no subagents at conformance, the loop boundary stays session-continuity). A play that did not
+make the core cut is DORMANT, not rejected; the ONLY truly rejected plays are the parallel/multi-agent
+ones above. Examples: a pilot whose deliverable is a **website** wakes `/qa`, `/design-html`,
+`/design-review`, `/canary`; an **iOS-app** pilot wakes the `/ios-*` suite (`/ios-qa`, `/ios-fix`,
+`/ios-design-review`, …) at build/conformance. These are absent from the core map precisely because
+they are domain-specific — the kind of choice the pilot owns. The pilot declares the plays it wakes
+(and at which gate) in `pilots/<name>/tooling.md`; core declares the open default, the pilot wakes what
+its domain needs.
+
 **Tools the team wields freely (NOT gated):** **ponytail** (code minimization — engine-maintenance
 only, OFF during a content build), **LLMLingua** (compress INPUT context only — never the deliverable,
 never replacing readable canonical files), **gbrain** (the optional recall projection), the **memory

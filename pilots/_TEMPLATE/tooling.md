@@ -13,6 +13,21 @@ installs the safe/known-missing ones, and FLAGS the rest `MISSING-ASK` (never gu
 |---|---|---|---|---|
 | <e.g. a PDF extractor> | excavation: <deposit type> | if that deposit type | `<detect>` | `<install, or MISSING-ASK>` |
 
+## Domain-woken gstack plays (optional)
+The core gate→play map in `platform/SKILLS.md` is the universal DEFAULT, and it is OPEN. If your domain
+warrants gstack plays that are dormant in the core map, declare them here — which play, at which
+deferral point, and the domain surface that warrants it. They wake under the SAME invariants
+(single-agent; conformance-not-quality; nothing at the assay; no subagents at conformance; the loop
+boundary stays session-continuity). Delete the example rows.
+
+| gstack play | deferral point | warranted because (the domain surface) |
+|---|---|---|
+| `/qa` | iteration — conformance | the deliverable is an interactive website |
+| `/ios-qa` | iteration — conformance | the deliverable is an iOS app |
+
+Only the parallel/multi-agent plays (`/pair-agent`, Conductor, sub-agents) can NEVER be woken — they
+violate the single-agent law (PRINCIPLES #5).
+
 ## Rules
 - `required` extractors are conditional on the deposit types in your `deposits.md` — only the ones a
   run actually needs are required for that run (engine policy: wire the subset a run needs).
