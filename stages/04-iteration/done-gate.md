@@ -47,6 +47,30 @@ manifest/index.md), and log the ship to logs/gate-checks.md (outcome: ship). The
 now quotable by sibling work. See stage 04 CONTRACT (Working location + Outputs) for the deliverable
 frontmatter and seal semantics.
 
+## After ship — the loop boundary is a deferral point (do NOT auto-loop)
+When the done-gate ships, the LOOP IS COMPLETE and the engine STOPS. It does NOT check for more work,
+and it does NOT start another loop on its own. A new loop begins only when the operator supplies new
+deposits to excavation — that supply is the *request* that re-fires the pipeline (PRINCIPLES #2: a
+stage runs because something requested it, never because it exists). The loop boundary is the system's
+final deferral point, handled like every other: by waiting for a request, not by self-triggering.
+
+Re-entry is SAFE without any run counter, because the boundary is carried by PRODUCED STATE on disk:
+- new deposits enter as new `vault/account.md` rows (`consumed: false`); the assay processes only
+  those, ignoring loop-1's `consumed: true` material;
+- ids are repo-unique (excavation checks against every existing address), so a new loop cannot collide
+  with the old;
+- `sealed: true` manifest items are terminal — iteration never re-consumes them.
+The run boundary is the FRONTIER OF PRODUCED STATE — what has been consumed and sealed. **Progress is
+marked by production, not by numbering.** There is no `run_id`, and there must not be one.
+
+**Do NOT drift this into an auto-loop.** An engine that checks for new material and re-enters on its
+own was specified as Route A and REJECTED (changelog 2026-06-30): it makes a stage run because it
+*can* (violates deferral #2), it makes the engine *judge* whether to loop (violates #1 "execute, don't
+think"), and it carries loop-1's warm context into loop-2's judgments — the exact contamination M2W
+defers around. The hard stop is load-bearing: it is the context-flush point that keeps each loop's
+context clean. Removing it does not add a feature; it punches a hole in the contamination defense.
+(Revert guard: tested design decision — surface before changing.)
+
 ## TODO(tools)
 Any tool that helps classify substance-vs-surface is wired in a LATER pass. For this pass, the RULE is
 what you build (this file), not its automation.

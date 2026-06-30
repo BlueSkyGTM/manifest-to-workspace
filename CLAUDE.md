@@ -129,6 +129,11 @@ Quality lives in the shape of the design schema, not in a gate's opinion. Three 
   never committing to an uncertain call.
 - **Conformance + done-gate** (iteration) — did the deliverable conform to its design schema, and
   has marginal utility dropped below cost (ship) or not (iterate).
+- **The loop boundary** (after ship) — starting another loop is a deferral point, NOT an auto-loop:
+  it fires only when the operator supplies new deposits, never on the engine's own initiative.
+  Re-entry is made safe by PRODUCED STATE (consumed/sealed flags + repo-unique ids), not a run
+  counter — progress is marked by production, not numbering. An engine-initiated auto-loop was
+  considered and rejected; do not add one. See platform/GATES.md §4.
 
 ## Logging is mandatory and continuous (platform/LOGS.md)
 

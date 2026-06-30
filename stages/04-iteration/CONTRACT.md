@@ -6,7 +6,10 @@ conformance-gated, stopped by diminishing marginal utility.
 
 ## Inputs
 - The manifest at `manifest/` (stage 03 output): `index.md` (the cargo list) + `items/<id>.md`.
-  Pull from it just-in-time; do NOT load all of `items/` into context.
+  Pull from it just-in-time; do NOT load all of `items/` into context. Pull only `sealed: false`
+  items — a `sealed: true` item is TERMINAL (already consumed into a shipped deliverable) and is never
+  re-consumed; a later loop's iteration sees only the unsealed items (sealed material stays quotable by
+  siblings but is never rebuilt).
 - The deliverable's design schema (the cookie-cutter that holds the quality judgment) — supplied by
   the instantiation, or cut from logs of proven-good work.
 - The concrete build workflow — supplied by the instantiation (see the iteration-workflow interface

@@ -13,6 +13,20 @@ losing the thread across long runs.
 ```
 
 ## Current state
+## 2026-06-30 — CONTINUATION locked in (Route B): the loop boundary is a deferral point
+- verified: codex full-run sim #2 ran (CAPACITY: PARTIAL, CONTINUATION: FAIL — in logs/failures.md).
+  The 3 capacity gaps were fixed (Decision 1); the continuation gap is now closed by Route B.
+- changed: re-entry after ship is a DEFERRAL POINT, not an auto-loop. Additive `consumed:` flag (vault
+  account rows + cart records), repo-unique ids, and a sealed-terminal rule; a new 4th deferral point
+  ("the loop boundary") in platform/GATES.md, CLAUDE.md, and stages/04-iteration/done-gate.md, each
+  with a DO-NOT-AUTO-LOOP anti-drift note. Route A (engine auto-loop + run_id) was considered and
+  REJECTED (breaks deferral #1/#2; reintroduces cross-loop contamination). See changelog 2026-06-30
+  (Decision 2) — marked HIGH conceptual revert-risk.
+- broken: nothing. The changes are additive; the simulation-validated single-loop chain is unchanged.
+- next: re-run the codex TWO-LOOP simulation to confirm CONTINUATION -> PASS (loop 2 starts on new
+  deposits without re-processing or id collision). Still pending: the operator's ratify/redline of the
+  gstack-at-gates mapping (proposed, not yet encoded into platform/SKILLS.md).
+
 ## 2026-06-30 — gbrain wiring + tooling-manifest correctness
 - verified: deletion test still passes (no pilot/domain refs in core law/spec/stage files; only the
   history files — changelog/logs/this note — record the past GTM separation). Stage routing unchanged

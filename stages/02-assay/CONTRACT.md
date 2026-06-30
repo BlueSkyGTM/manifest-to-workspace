@@ -11,6 +11,9 @@ assay is intrinsically THREE-way; this is not a feature, it is what assaying is.
   seam layer accretes from the human's calls. See ARCHITECTURE.md §2.2.
 
 ## Process (per piece)
+0. Process only vault pieces whose `vault/account.md` row is `consumed: false`. A later loop's assay
+   ignores already-routed (`consumed: true`) material — the run boundary is the frontier of what has
+   been produced, not a run counter.
 1. Test seam-fit against known on-seam edges.
 2. Route by the THREE-WAY rule below.
 3. For CART, stamp the **cart record** (the assay's structured output) as frontmatter on the carted
@@ -21,6 +24,7 @@ assay is intrinsically THREE-way; this is not a feature, it is what assaying is.
    source: <deposit it came from>  # carried from the vault account
    assay: cart
    seam_match: <the on-seam edge it matched>   # the edge the human/seam named — the load-bearing field
+   consumed: false                 # minted here; the manifest flips it true when it transports the piece
    ---
    ```
    Without this record stage 03 has no `seam_match` to inherit and must bench the item. The body of
@@ -29,7 +33,8 @@ assay is intrinsically THREE-way; this is not a feature, it is what assaying is.
 5. For BENCH, write a bench note at `bench/<id>.md` with these fields (so the escalation is readable
    and the human can clear it): `what:`, `near-edges:` (which edges it was between), `why-uncertain:`,
    `escalate-to:`.
-6. Log the firing to logs/gate-checks.md (outcome: carted | tailed | benched).
+6. Flip the piece's `vault/account.md` row to `consumed: true` (it has been routed), then log the
+   firing to logs/gate-checks.md (outcome: carted | tailed | benched).
 
 ## The three-way rule (mechanical) — each exit needs POSITIVE evidence
 - CART  → carts/    : matched a known ON-SEAM edge with NO conflicting near-miss. Clean yes.

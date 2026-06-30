@@ -12,7 +12,11 @@ the itemized, addressed cargo list.
   logs/failures.md and stop. Do not invent seam_match.
 
 ## Process (per piece)
-1. Address the piece (a stable, unique `id`) and transport it to `manifest/items/<id>.md`.
+0. Process only carts whose cart record is `consumed: false`. A later loop's manifest ignores
+   already-transported (`consumed: true`) carts — the boundary is produced state, not a counter.
+1. Address the piece by REUSING its inherited `id` (minted at excavation, already repo-unique — do not
+   re-mint) and transport it to `manifest/items/<id>.md`. Flip the cart record to `consumed: true`
+   (it has been transported).
 2. Stamp frontmatter per frontmatter-schema.md. Descriptive fields are OBSERVED, not judged; the rest
    are inherited from the assay or assigned mechanically (see the schema's field classes).
 3. Catalogue the piece: append its row to `manifest/index.md` (the cargo list).

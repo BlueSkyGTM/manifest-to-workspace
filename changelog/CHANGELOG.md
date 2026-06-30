@@ -228,3 +228,34 @@ intent), how it was tested, and what breaks if it is reverted.
 - revert-risk: low — reverting re-opens the id-origin contradiction, the native-text false-bench, and
   the degenerate iteration-1 ship. CONTINUATION (loop 2 / re-entry) is a SEPARATE, larger decision
   being spec'd next, NOT addressed here.
+
+## 2026-06-30 — CONTINUATION (Decision 2): Route B — one-loop-per-invocation + safe re-entry [tested-design]
+- what: closed the CONTINUATION: FAIL gap (codex sim #2) by making loop re-entry a DEFERRAL POINT, not
+  an auto-loop. Additive changes only: (1) excavation mints `consumed: false` on each vault/account row
+  and ids are now **repo-unique** (checked against all existing addresses, not "within the run"); (2)
+  the assay processes only `consumed: false` vault rows and flips them `true` when it routes a piece;
+  the cart record gains `consumed: false`; (3) the manifest processes only `consumed: false` carts,
+  reuses the inherited id (no re-mint), and flips the cart `consumed: true` on transport; (4) iteration
+  pulls only `sealed: false` manifest items — `sealed: true` is TERMINAL, never re-consumed. Added a
+  4th deferral-point ("the loop boundary") to platform/GATES.md, CLAUDE.md, and an "After ship" section
+  in stages/04-iteration/done-gate.md with an explicit DO-NOT-AUTO-LOOP anti-drift note.
+- why: chosen over Route A (engine-defined auto multi-loop with run_id) by the operator's overriding
+  criterion — REPO INTEGRITY FIRST, axe anything that risks the whole even if more capable. Route A was
+  REJECTED because: post-ship auto-re-entry makes a stage run because it *can* (violates deferral
+  PRINCIPLES #2) and makes the engine *judge* whether to loop (violates #1); run-scoped id namespacing
+  changes the simulation-tested address convention (tested-chain risk); and auto-continuing in a warm
+  context carries loop-1 state into loop-2 judgments — the exact cross-loop contamination M2W defers
+  around. Route B makes the loop boundary obey the same law as every other transition (fires on the
+  operator's new-deposits *request*), so deferral becomes TOTAL — no engine-initiated action anywhere.
+  The "run boundary" is the FRONTIER OF PRODUCED STATE (consumed/sealed on disk), not a counter:
+  progress is marked by production, not numbering.
+- tested: design validated against the non-negotiables (deferral, glass-box, single-agent, agnostic)
+  and the codex sim #2 findings; changes are ADDITIVE (the simulation-validated single-loop chain runs
+  identically — `consumed` only gates a SECOND pass; id shape unchanged, uniqueness check additive).
+  Not re-simulated end-to-end yet (recommended next: re-run the codex two-loop sim to confirm CONTINUATION → PASS).
+- revert-risk: HIGH (conceptual). Do NOT "simplify" this into an engine that auto-loops / adds a
+  `run_id` / checks for new material and re-enters itself — that IS Route A, rejected here for breaking
+  the deferral law and re-opening cross-loop contamination. The hard stop after ship is load-bearing
+  (the context-flush point), and "no run counter" is deliberate. Surface to the human before changing
+  any of: the `consumed` flag, the repo-unique id rule, the sealed-terminal rule, or the GATES.md §4
+  "loop boundary" deferral point.

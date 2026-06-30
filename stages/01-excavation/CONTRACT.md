@@ -35,17 +35,23 @@ is the contamination defense; the assets are a side effect of building the route
    on all hauled material because all of it must be assayable; the EXPENSIVE visual rendering does
    not — that waits for iteration.)
 4. Land each piece in vault/ with a stable address. **Address convention:** the `id` is a kebab-case
-   slug of the piece's title/source, unique within the run (suffix `-2`, `-3` on collision). The
-   vault filename is `vault/<id>.md`. This convention is fixed so addresses are stable and inferable,
-   not guessed per-run; every downstream stage reuses the same `id`.
+   slug of the piece's title/source, **unique within the repo** — before assigning it, check the
+   candidate against every existing address (`vault/account.md`, `manifest/index.md`, and `library/`);
+   on collision, suffix `-2`, `-3`. The vault filename is `vault/<id>.md`. This convention is fixed so
+   addresses are stable and inferable, not guessed per-run; every downstream stage reuses the same
+   `id`. Repo-wide uniqueness (not merely per-run) is what lets a LATER LOOP add new material beside
+   the old without collision — there is no run counter.
 5. Record each piece in the vault account (`vault/account.md`): id + source + format + the
-   bounded-space it came from. The account is the index that makes vault/ routable instead of a pile.
+   bounded-space it came from, plus `consumed: false`. The account is the index that makes vault/
+   routable instead of a pile.
 
 ## Outputs
 - Raw material in vault/, each piece addressed.
 - `vault/account.md`: the vault-level index. Every hauled piece has one row
-  (`- id: <address> | source: <deposit> | format: <type> | bounded_space: <coverage target>`).
-  Nothing unaddressed, nothing unaccounted.
+  (`- id: <address> | source: <deposit> | format: <type> | bounded_space: <coverage target> | consumed: false`).
+  `consumed:` is minted `false` here and flipped `true` by the assay when it routes the piece; the
+  assay processes only `consumed: false` rows, so a later loop never re-assays old material. Nothing
+  unaddressed, nothing unaccounted.
 
 ## Deferral point (tooling checks only — NO quality judgment)
 - Reach: did the extraction reach the source? (pass/fail)

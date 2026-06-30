@@ -38,6 +38,25 @@ human makes the cart/tailings/bench call and the system records each as training
   substance-to-surface transition. See stages/04-iteration/done-gate.md. Ship when flat; iterate when
   not. Dismantle permitted only while its marginal utility exceeds its cost.
 
+### 4. The loop boundary / re-entry (after Ship)
+After a deliverable ships, the loop is complete and the engine STOPS. Starting another loop is itself a
+deferral point: it fires only when the operator supplies new deposits (the *request*), never on the
+engine's own initiative. The engine does NOT check for new material and re-enter itself — that would be
+a stage running because it *can*, plus a judgment ("is there enough new material to loop?"), both
+forbidden (PRINCIPLES #1, #2).
+
+Re-entry is made safe by produced state, not a counter:
+- new material enters as new `vault/account.md` rows marked `consumed: false`; each stage processes
+  only its `consumed: false` (iteration: `sealed: false`) inputs, so a later loop never re-processes
+  already-handled material;
+- ids are repo-unique (excavation checks against all existing addresses), so loops never collide;
+- `sealed: true` items are terminal and never re-consumed.
+**Progress is marked by production, not by numbering** — the boundary between loops is the frontier of
+what has been consumed and sealed, visible entirely on disk (glass-box). There is no `run_id` and there
+must not be one; an engine-initiated auto-loop (Route A) was considered and REJECTED (changelog
+2026-06-30) because it reintroduces cross-loop context contamination — the very thing deferral defends
+against.
+
 ## What a deferral point NEVER does
 - It never judges whether content is "good," "useful to a customer," or "high quality."
 - It never resolves ambiguity by committing — ambiguity routes to bench/ or logs/failures.md.
