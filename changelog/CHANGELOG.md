@@ -137,3 +137,17 @@ intent), how it was tested, and what breaks if it is reverted.
 - tested: ran `bash bin/scan-tools.sh` on this machine — correct table, exit 0 (all required present).
 - revert-risk: removing the script/gitignore returns to prose-only triggering and stale committed
   status — a clone could trust the wrong machine's tool state.
+
+## 2026-06-29 — gbrain diagnosis (not indexed; blocked on host restart)
+- what: attempted to set up gbrain for this repo via /sync-gbrain. Did NOT index it. Diagnosed the
+  brain state instead and recorded a durable operational note in platform/TOOLING.md.
+- why: gbrain MCP is reachable (18 pages) but has 0 embeddings — the `gbrain serve` MCP server was
+  launched without OPENAI_API_KEY in its process env (registration passes `env: []`; the key is set at
+  Windows User scope but the running server predates it). Embeddings can't generate, so semantic search
+  is dead until the host is restarted so the server relaunches with the key. The CLI/`/sync-gbrain`
+  path is also blocked because PGLite is single-connection and the MCP server holds it open.
+- tested: get_health via MCP (page_count 18, embed_coverage 0, missing_embeddings 18); confirmed key
+  is User-scope SET but MCP `env: []`; CLI sources-list timed out (lock).
+- revert-risk: n/a (diagnosis + note only; no engine change). Indexing THIS agnostic 30-file repo is
+  low value anyway — gbrain earns its keep on a pilot's content corpus or a large codebase, not the
+  engine docs. Revisit after the host restart makes the brain able to embed.

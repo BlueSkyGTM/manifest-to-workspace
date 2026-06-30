@@ -80,6 +80,14 @@ Harness + state/memory:
 | gbrain repo-pin | this repo indexed for gbrain | optional | `[ -f .gbrain-source ]` | MISSING-ASK (`/sync-gbrain --full`; needs human) |
 | evaluator | iteration Accept/Revise/Block | yes | n/a (rubric + fresh-context pass; no external tool) | n/a |
 
+**gbrain note (embeddings need the key at MCP-server start):** gbrain embeds via OpenAI
+(`text-embedding-3-large`). The gbrain MCP server (`gbrain serve`) captures its environment at START,
+so if `OPENAI_API_KEY` wasn't present when Claude Code launched it, embeddings silently produce 0
+coverage (pages exist, search returns nothing). Fix: ensure `OPENAI_API_KEY` is a persistent env var
+(Windows User scope / shell profile), then RESTART the host so the server relaunches with it; then
+backfill embeddings. Also: PGLite is single-connection, so the `gbrain` CLI (and `/sync-gbrain`) cannot
+run while the MCP server holds the brain open — use the gbrain MCP tools, or stop the server first.
+
 **ponytail scope (important):** ponytail minimizes CODE. Use it ON coding / tooling / engine-
 maintenance work (where over-engineering wastes tokens). Keep it OFF during a pilot's CONTENT
 deliverable build (iteration), where a minimalism ladder UNDER-builds the deliverable — completeness
