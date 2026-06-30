@@ -87,6 +87,9 @@ coverage (pages exist, search returns nothing). Fix: ensure `OPENAI_API_KEY` is 
 (Windows User scope / shell profile), then RESTART the host so the server relaunches with it; then
 backfill embeddings. Also: PGLite is single-connection, so the `gbrain` CLI (and `/sync-gbrain`) cannot
 run while the MCP server holds the brain open — use the gbrain MCP tools, or stop the server first.
+And: `gbrain serve` exposes the API but does NOT process the job queue — submitted jobs (embed, sync)
+sit `waiting` until a worker runs. Run `gbrain autopilot --install` (a per-machine background daemon)
+to actually process embeds/syncs. Until the daemon runs, embeddings stay at 0 even with the key set.
 
 **ponytail scope (important):** ponytail minimizes CODE. Use it ON coding / tooling / engine-
 maintenance work (where over-engineering wastes tokens). Keep it OFF during a pilot's CONTENT
