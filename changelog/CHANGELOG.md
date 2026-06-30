@@ -295,3 +295,24 @@ intent), how it was tested, and what breaks if it is reverted.
   no chain. Do NOT, however: add a review skill at the assay, make /autoplan always-on, let excavation
   /scrape//browse filter for relevance, let the conformance evaluator spawn subagents, or reframe the
   loop-boundary row as auto-continuation — each re-opens a law violation the voice flagged.
+
+## 2026-06-30 — gstack-at-gates EXPANDED to the full suite (second autoplan/codex voice pass)
+- what: the first map was thin (~1/3 of the suite). Expanded the SKILLS.md gate→play map to exploit the
+  whole suite at the right deferral points and ran a SECOND codex autoplan-voice over the fuller map.
+  Notable additions: the gstack BROWSER (`/browse` + `/open-gstack-browser`) and `/skillify` as the
+  EXCAVATION/vaulting engine ("gbrowser for vaulting"); `/diagram` + `/design-html` at iteration build;
+  `/qa` `/qa-only` `/cso` `/benchmark` `/design-review` at conformance; `/make-pdf` `/document-*`
+  `/canary` at ship; `/investigate` for failure handling; `/learn` `/retro` at the loop boundary;
+  `/health` `/gstack-upgrade` `/benchmark-models` as engine-maintenance.
+- why: gstack is a suite, not two skills; the engine should use it fully. The decision was again
+  deferred to gstack's own voice. The second pass CONFIRMED the additions but TIGHTENED ~12 placements
+  and cut one, all toward two invariants — conformance-not-quality and conditional-on-surface:
+  setup-* skills are CONDITIONAL (not cold-boot); `/qa`/`/design-review`/`/cso`/`/benchmark` check
+  schema conformance, never "is it good"; `/investigate` may root-cause a mechanically-stopped stage
+  but NEVER auto-resolve a benched seam call; `/learn` writes readable-first; `/skillify` codifies
+  coverage not relevance; `/benchmark-models` moved out of conformance to engine-maintenance.
+- tested: codex gpt-5.5 autoplan-voice (2nd pass), read-only, exit 0 — per-play CONFIRM/CHANGE/REMOVE,
+  no law violations once the tightened constraints hold.
+- revert-risk: low — additive guidance. Preserve the two invariants if editing: every gated play is
+  conformance-not-quality and conditional-on-surface; nothing at the assay; no subagents at conformance;
+  the loop boundary stays session-continuity, not auto-loop.
