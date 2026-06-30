@@ -52,6 +52,14 @@ is NOT "failed the cart test" — mere absence of an on-seam match is not eviden
 bench. You do NOT resolve ambiguity — you defer it to the bench. The bench is the third exit that lets
 the pipeline run without committing to an uncertain call.
 
+**Glass-box the seam call (cite, don't just assert).** A CART must be able to state its on-seam edge
+(`seam_match`) AND that the near-miss check was clean (no conflicting near-edge); a TAILINGS must cite
+its positive off-seam evidence in logs/rejections.md. If you cannot cite that positive evidence and a
+clean near-miss check, you have NOT earned the route — BENCH. This is what stops a lighter model tier
+from falsely routing material whose ambiguity it failed to perceive (see the assay guard in
+platform/TOOLING.md model-tier policy): "any ambiguity benches" only protects against ambiguity that is
+perceived, so the perception must be made visible as cited evidence, not assumed.
+
 ## Outputs
 - carts/    : on-seam material, each item carrying its cart-record frontmatter (id, source, assay,
   seam_match) so stage 03 can inherit it.

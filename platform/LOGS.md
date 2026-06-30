@@ -30,6 +30,7 @@ Entry format:
 - stage: <stage>
 - item: <address of the item, or "n/a">
 - outcome: <passed | failed | carted | tailed | benched | accept | revise | block | ship | iterate>
+- tier: <light | mid | top>   # the model tier this firing ran on; append `step-up: <reason>` if one occurred
 - note: <one line>
 ```
 

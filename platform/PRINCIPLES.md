@@ -68,7 +68,8 @@ README centers them.
 to match the cognitive demand of the work — a LIGHT tier (e.g. Haiku) for mechanical stages (fetch,
 catalogue), the TOP tier (e.g. Opus) where judgment actually lives (the build, the schema, conformance),
 a MID tier (e.g. Sonnet) between. This is not multi-agent: no parallelism, no second agent, no separate
-context — the SAME agent continues the SAME path at a different tier. The switch is SELF-DIRECTED (the
+context — the SAME agent continues the SAME path at a different tier, on the same run transcript (no
+sidecar critique, no vote, no maker/checker split, no hidden second reasoning channel). The switch is SELF-DIRECTED (the
 agent recognizes the stage's demand and switches; it is not the operator's to drive) and MECHANICAL
 (the tier is declared per stage in platform/TOOLING.md — execute the policy, do not deliberate it). The
 fence rejects PARALLEL/multi-agent execution; it has never rejected running the one agent on the right

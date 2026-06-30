@@ -64,17 +64,35 @@ current light / mid / top models (e.g. Haiku / Sonnet / Opus); the engine stays 
 | Excavation (fetch, extract, address) | LIGHT | mechanical reach/coverage/addressing; no judgment (deferred) — focus on fetching |
 | Assay (three-way seam routing) | MID | the cart/tailings/bench test is near-mechanical and ANY ambiguity benches — the agent never RESOLVES an uncertain call, so it never needs the top tier to "think harder" |
 | Manifest (catalogue + frontmatter) | LIGHT | mechanical cataloguing + descriptive frontmatter |
-| Iteration (build, design-schema, conformance, done-gate) | TOP | the judgment-heavy core — craftsmanship, schema shape, conformance, substance-vs-surface |
+| Iteration (build the deliverable) | TOP | the judgment-heavy core — authoring schema-conforming content, design-schema work, the substance-vs-surface read. (The conformance GATE checks shape, not quality; TOP is for the BUILD that produces conforming content, where craftsmanship lives — not for the gate to "judge harder.") |
 | Loop boundary / session continuity (persist, recall, handoff) | LIGHT–MID | mechanical persist/recall |
 
-Self-switch at each stage boundary to the stage's tier. The agent MAY step UP within a stage if the
-work genuinely needs more capability — but NEVER to override a deferral: a heavier tier does not earn
-the right to resolve what a gate defers. At the assay, ambiguity benches regardless of tier; the agent
-never escalates the model to think past a bench/stop the law owns. Stepping up is for capability, never
-permission to judge where the contract says stop. (Harness note: the agent self-switches wherever the
-runtime supports mid-run model switching; where it does not, these are the recommended per-stage tiers.
-A pilot may override a stage's tier when its domain makes the work heavier/lighter — declared in
-`pilots/<name>/tooling.md`, same as any domain choice.)
+Switching is DETERMINISTIC, not deliberated: at each stage boundary, identify the active contract and
+use the tier declared here (or in the pilot's predeclared `pilots/<name>/tooling.md` policy). Do NOT
+deliberate the tier per item.
+
+**Within-stage step-up** is allowed ONLY for capability failures that do not decide a deferred call —
+context capacity, mechanical parsing/formatting, implementation complexity, or ambiguity-DETECTION that
+can only bench/log/stop. A step-up may NEVER convert uncertainty into a cart/tailings/pass. Stepping up
+buys capability, never permission to judge where the contract says stop.
+
+**The assay guard (the perception loophole).** "Any ambiguity benches" only protects against ambiguity
+the model PERCEIVES — a lighter tier can falsely see a clean match, stamp `seam_match`, and contaminate
+`carts/` (then `manifest/`, which inherits the cart record and may not invent it later). So at the
+assay: MID may propose routes ONLY against an explicit seam layer (on-seam edges, off-seam patterns,
+near-miss examples). Before committing any CART or TAILINGS, record the positive evidence AND an
+explicit near-miss check; if the evidence is absent, uncited, or weak — or the near-miss inventory is
+missing — BENCH. On an immature or high-risk seam, the assay commit is TOP or human-cleared. A TOP
+step-up at the assay may only DETECT ambiguity and force bench/log/stop; it may never convert
+uncertainty into a cart/tailings.
+
+**Glass-box.** Every gate firing in `logs/gate-checks.md` records the `tier:` it ran on, and any
+within-stage step-up records its reason and allowed effect. Tier is not hidden state.
+
+(Harness note: the agent self-switches wherever the runtime supports mid-run model switching; where it
+does not, these are the recommended per-stage tiers. A pilot may override a stage's tier ONLY as
+predeclared file policy in `pilots/<name>/tooling.md` — never operator-driven per item, and never below
+the assay guard.)
 
 ## Concrete tool choices live in the pilot
 The adopted set for a given run — which extractor matches which deposit, which retrieval store, which

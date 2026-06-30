@@ -353,3 +353,28 @@ intent), how it was tested, and what breaks if it is reverted.
 - revert-risk: medium (conceptual). Do NOT let model-switching become (a) operator-driven (it is
   self-directed) or (b) a license to resolve a deferred call by "thinking harder" on a bigger model —
   that reintroduces the early judgment the gates defer around. Keep tiers by ROLE, not pinned versions.
+
+## 2026-06-30 — Model-tier policy hardened (codex voice: SOUND-WITH-CHANGES)
+- what: cross-model-validated the model-tier policy (codex gpt-5.5). Verdict SOUND-WITH-CHANGES; applied
+  every required fix: (1) PRINCIPLES #5 — tier switching stays on the SAME run transcript (no sidecar
+  critique/vote/maker-checker/hidden channel). (2) TOOLING.md — switching is DETERMINISTIC (read the
+  declared tier, don't deliberate per item); within-stage step-up is allowed ONLY for capability
+  failures that do NOT decide a deferred call (and may never convert uncertainty into cart/tailings/
+  pass). (3) THE ASSAY GUARD (highest-risk finding) — "any ambiguity benches" only protects against
+  PERCEIVED ambiguity; a lighter tier can falsely cart. So MID may route only against an explicit seam
+  layer; every CART/TAILINGS must cite positive evidence + a clean near-miss check or BENCH; immature/
+  high-risk seams are TOP or human-cleared; a TOP step-up at the assay may only DETECT ambiguity and
+  force bench. (4) Glass-box — `logs/gate-checks.md` now records `tier:` (+ step-up reason); added to
+  LOGS.md format and the assay CONTRACT ("cite, don't assert" the seam call). (5) Fixed the TOP-tier
+  rationale wording so "conformance" is not mislabeled as quality-judgment (the gate checks shape; TOP
+  is for the BUILD). Pilot tier overrides must be predeclared file policy, never per-item, never below
+  the assay guard.
+- why: measure twice, cut once — the policy touches non-negotiable #5 and the seam deferral point. The
+  perception loophole (a weak tier falsely carting what it failed to see as ambiguous) is exactly the
+  early-judgment contamination M2W exists to prevent; the cite-evidence guard + tier-floor on immature
+  seams close it.
+- tested: codex gpt-5.5 adversarial review, read-only, exit 0 — SOUND-WITH-CHANGES; all required fixes
+  applied and re-anchored to PRINCIPLES/GATES/the assay contract.
+- revert-risk: medium (conceptual). Do NOT relax the assay guard (cite-evidence + near-miss check +
+  TOP/human on immature seams), the deterministic-switch rule, or the same-transcript single-agent
+  guard — each re-opens a law hole the voice flagged.
