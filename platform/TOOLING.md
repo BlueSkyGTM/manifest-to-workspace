@@ -60,3 +60,31 @@ environment, are an instantiation detail — verify before relying on it.)
 The adopted set for a given run — which extractor matches which deposit, which retrieval store, which
 build-chain tools — is domain-specific. It does NOT belong here. See `pilots/<name>/tooling.md`. Core
 declares the policy; the pilot makes the picks.
+
+## Tool scan protocol (self-bootstrapping — so a cold session knows what to install)
+A cold session must not discover missing tools by failing mid-run. Each pilot declares a machine-
+readable **tool manifest** (a table in `pilots/<name>/tooling.md`); core defines how to ACT on it.
+
+Manifest row schema (the pilot fills these):
+```
+| tool | role / stage slot | required|optional | detect (shell test) | install (shell cmd) |
+```
+
+WHEN the scan runs (the trigger — wired into CLAUDE.md and SETUP.md):
+- on SETUP (first orientation in a repo), and
+- before a RUN (before excavation actually fires).
+
+The scan algorithm (single-agent, glass-box):
+1. For each manifest row, run `detect`. Record PRESENT / MISSING.
+2. For a MISSING **required** tool with a known, side-effect-safe `install`: install it, then re-detect.
+3. For a MISSING tool whose `install` is **UNKNOWN, needs secrets/auth, needs a clone, or changes the
+   machine in a way the human should approve**: do NOT guess or run it. FLAG it (status `MISSING-ASK`)
+   and surface it to the human. Guessing an install violates "you do not think; you execute."
+4. Write the result to `pilots/<name>/tool-status.md` (glass-box: state on disk, regenerated each
+   scan, per-machine). Never hold tool status only in your head.
+5. If a required tool is MISSING after the scan, the run cannot start that stage — STOP and report,
+   per DRY-RUN.md scoping (wire only the subset a run needs; a missing required tool is a blocker, a
+   missing optional tool degrades gracefully).
+
+This makes the repo self-describing about its tools: open it on any machine, the scan tells you (and
+installs, where safe) what the active pilot needs.

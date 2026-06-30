@@ -38,6 +38,15 @@ domain (the current instantiations live there; core does not name them). The law
 deliverable shape, that is a leak — flag it to `logs/failures.md`. Deletion test: remove `pilots/` and
 the core must still stand. (This is ICM's one-way-reference and canonical-source discipline.)
 
+## Before a run (the TOOL SCAN)
+
+On SETUP, and before a RUN actually fires excavation, run the **Tool scan** (`platform/TOOLING.md`)
+against the active pilot's manifest (`pilots/<name>/tooling.md`). It detects what is installed,
+installs the safe/known-missing ones, and FLAGS the rest (`MISSING-ASK`) for the human — it never
+guesses an install. The result is written to `pilots/<name>/tool-status.md`. A missing REQUIRED tool
+is a blocker: stop and report. This is why a cold session on a new machine knows immediately what to
+install.
+
 ## Before you change the machine (the REVERT GUARD)
 
 If the user asks you to **modify** the repo, **improve/refactor** it, or **undo/revert** a change,

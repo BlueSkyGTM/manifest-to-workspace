@@ -54,3 +54,23 @@ intent), how it was tested, and what breaks if it is reverted.
 - revert-risk: HIGH. Reverting any of these re-opens a chain-break that makes an autonomous run stall
   mid-pipeline. Do NOT undo without re-running the simulation. See logs/failures.md (2026-06-29 audit
   + sim entries).
+
+## 2026-06-29 — changelog/ + revert guard
+- what: added this folder (CONTEXT.md + CHANGELOG.md) and a trigger in CLAUDE.md ("Before you change
+  the machine").
+- why: stop a future session from reverting a tested change without knowing it was validated. Trigger
+  fires on modify/improve/undo.
+- tested: trigger wired into CLAUDE.md (the always-read entry); verified the rule is stated there.
+- revert-risk: lose the regression guard — future sessions could silently undo tested fixes.
+
+## 2026-06-29 — Self-scanning tool layer
+- what: added a Tool scan protocol (platform/TOOLING.md), a machine-readable tool manifest in the
+  pilot (pilots/<name>/tooling.md), a per-machine status file (tool-status.md), and a trigger in
+  CLAUDE.md + SETUP.md ("Before a run: run the Tool scan").
+- why: so a cold session on any machine immediately knows what tools the active pilot needs, installs
+  the safe/known-missing ones, and FLAGS the rest (MISSING-ASK) instead of guessing an install or
+  failing mid-run. Replaces the bare TODO(tools) markers with a self-describing, detect+install layer.
+- tested: scan run on this machine (win32); status recorded in tool-status.md (gstack/codex/gbrain
+  present, gbrain repo-pin + back-half tools flagged MISSING-ASK, pip extractors MISSING-safe).
+- revert-risk: lose the auto-detect/install capability; a cold session would again discover missing
+  tools only by failing mid-run.

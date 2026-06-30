@@ -19,6 +19,11 @@ lists all eight law files (PRINCIPLES, MWP, GATES, LOGS, TOOLING, SKILLS, glossa
 BUILD-INSTRUCTIONS.md carries the hard DO-NOT list. There is no magic phrase — the discipline is
 that reading comes first and improvisation is forbidden.
 
+After reading, run the **Tool scan** (CLAUDE.md "Before a run"; protocol in platform/TOOLING.md)
+against the active pilot's manifest. It tells you — on this machine, right now — what is installed,
+installs the safe missing ones, and flags the rest for you. This is how a cold session knows what to
+set up without failing mid-run.
+
 ## Pre-loading material (IMPORTANT — one door only)
 
 You MAY place raw material into the pipeline before setup. There is exactly ONE correct door:
