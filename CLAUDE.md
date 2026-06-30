@@ -38,6 +38,14 @@ domain (the current instantiations live there; core does not name them). The law
 deliverable shape, that is a leak — flag it to `logs/failures.md`. Deletion test: remove `pilots/` and
 the core must still stand. (This is ICM's one-way-reference and canonical-source discipline.)
 
+## Before you change the machine (the REVERT GUARD)
+
+If the user asks you to **modify** the repo, **improve/refactor** it, or **undo/revert** a change,
+read `changelog/CHANGELOG.md` FIRST. Hard rule: **do not revert or overwrite a change whose entry is
+marked `tested:` without surfacing it to the human** — name the entry, what it was designed to do, and
+how it was validated, then let the human decide. A tested change that looks odd is usually the fix;
+the oddness is load-bearing. See `changelog/CONTEXT.md`.
+
 ## The overarching law: M2W
 
 See `M2W.md` and `platform/PRINCIPLES.md`. The short form: defer every evaluation, execution, and
