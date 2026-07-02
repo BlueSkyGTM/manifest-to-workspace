@@ -4,5 +4,7 @@ pilots/*/tool-status.md
 # transient machine-local handoff files (trash when done)
 GBRAIN-BACKFILL-HANDOFF.md
 migrate.log
-# personal workflow skills (not part of the agnostic engine)
-.claude/skills/
+# personal workflow skills (not part of the agnostic engine) — /save is tracked so it travels across machines
+.claude/skills/*
+!.claude/skills/save/
+!.claude/skills/save/**
